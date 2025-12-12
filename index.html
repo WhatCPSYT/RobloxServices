@@ -1,56 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WhatCPS? — Roblox Studio Developer</title>
+  <title>WhatCPS? — Cennik</title>
   <style>
     :root{
-      --bg:#000;
-      --card:#111;
-      --card-2:#222;
-      --accent:#1e90ff;
-      --text:#fff;
-      --muted:#ccc;
-      --green:limegreen;
-      --red:#ff4d4d;
+      --bg:#0b0b0d;
+      --card:#0f1113;
+      --card-2:#15171a;
+      --accent:#ff69b4; /* różowy akcent */
+      --accent-2:#1e90ff; /* dodatkowy akcent dla kontrastu */
+      --text:#e9eef6;
+      --muted:#9aa3b2;
+      --green:#7ef08a;
+      --red:#ff6b6b;
+      --glass: rgba(255,255,255,0.03);
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body {
       margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      font-family: Inter, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg,#050507 0%, #0b0b0d 100%);
       color: var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      padding-bottom:40px;
     }
-    header, footer { text-align:center; padding:20px; background:var(--card); }
-    header h1 { margin:0; font-size:28px; letter-spacing:0.5px; }
+
+    header {
+      text-align:center;
+      padding:28px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+    }
+    header h1 { margin:0; font-size:28px; letter-spacing:0.4px; }
     header p { margin:6px 0 10px; color:var(--muted); }
-    a { color:var(--accent); text-decoration:none; }
-    a:hover { text-decoration:underline; }
-    .content { max-width:980px; margin:0 auto; padding:20px; }
-    .card { background:var(--card); padding:20px; margin:18px 0; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    header a { color:var(--accent-2); text-decoration:none; font-weight:600; }
+    header a:hover { text-decoration:underline; }
+
+    .content { max-width:1100px; margin:18px auto; padding:20px; }
+
+    .card { background:var(--card); padding:22px; margin:18px 0; border-radius:14px; box-shadow: 0 6px 30px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.02); }
     h2 { margin-top:0; }
-    .pricing { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; }
-    .plan { flex:1 1 260px; background:var(--card-2); border-radius:10px; padding:18px; text-align:left; min-width:220px; }
-    .plan h3 { margin:6px 0 12px; text-align:center; }
-    .btn-group { display:flex; gap:8px; justify-content:center; margin-bottom:12px; flex-wrap:wrap; }
-    .btn-group button { background:var(--accent); border:none; padding:8px 12px; border-radius:8px; color:#000; font-weight:700; cursor:pointer; }
-    .btn-group button:hover { filter:brightness(1.05); }
-    ul { margin:0; padding-left:18px; }
-    ul.features { list-style:none; padding:0; margin:8px 0 12px; }
-    ul.features li { margin:8px 0; display:flex; align-items:center; gap:10px; font-size:15px; }
-    .icon { display:inline-flex; width:22px; justify-content:center; align-items:center; font-weight:700; border-radius:4px; }
-    .check { color:var(--green); }
-    .cross { color:var(--red); }
-    .price { text-align:center; font-weight:800; margin-top:8px; font-size:16px; }
+
+    .pricing { display:flex; gap:18px; justify-content:center; align-items:flex-start; flex-wrap:wrap; }
+
+    .plan {
+      flex:1 1 320px;
+      background: linear-gradient(180deg, var(--card-2), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:18px;
+      text-align:left;
+      min-width:260px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .plan .badge {
+      position:absolute;
+      top:14px;
+      right:14px;
+      background:var(--accent);
+      color:#000;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:13px;
+      display:inline-block;
+      box-shadow: 0 6px 18px rgba(255,105,180,0.08);
+    }
+
+    .plan h3 { margin:12px 0 6px; font-size:20px; }
+    .plan p.lead { margin:0 0 12px; color:var(--muted); font-size:14px; }
+
+    .tabs {
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn-group {
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      margin-bottom:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn-group button {
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      transition: all 180ms ease;
+      font-size:13px;
+      min-width:92px;
+    }
+
+    .btn-group button:hover {
+      transform:translateY(-2px);
+      color:var(--text);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .btn-group button.active {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      color:var(--text);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 2px 8px rgba(255,105,180,0.06) inset;
+    }
+
+    .price {
+      text-align:center;
+      font-weight:900;
+      margin-top:8px;
+      font-size:22px;
+      color:var(--accent);
+      letter-spacing:0.6px;
+    }
+
+    .features { list-style:none; padding:0; margin:12px 0 8px; }
+    .features li {
+      margin:10px 0;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .features li strong { color:var(--text); font-weight:700; }
+
+    .icon {
+      display:inline-flex;
+      width:28px;
+      height:20px;
+      justify-content:center;
+      align-items:center;
+      font-weight:700;
+      border-radius:6px;
+      font-size:13px;
+    }
+    .check { color:var(--green); background: rgba(126,240,138,0.06); border:1px solid rgba(126,240,138,0.06); }
+    .cross { color:var(--red); background: rgba(255,107,107,0.04); border:1px solid rgba(255,107,107,0.03); }
+
     .note { font-size:0.92rem; color:var(--muted); margin-top:12px; text-align:center; }
-    footer { color:var(--muted); }
+
+    .cta {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .cta a {
+      background:var(--accent);
+      color:#000;
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:800;
+      text-decoration:none;
+      box-shadow: 0 10px 30px rgba(255,105,180,0.08);
+    }
+    .cta a.secondary {
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      padding:10px 14px;
+    }
+
+    footer { text-align:center; padding:18px; color:var(--muted); margin-top:18px; }
+
     /* Responsive */
-    @media (max-width:720px){
+    @media (max-width:980px){
       .pricing{flex-direction:column; align-items:stretch}
       .plan{width:100%}
+      .btn-group button{min-width:80px}
     }
   </style>
 </head>
@@ -58,103 +191,105 @@
   <header>
     <h1>WhatCPS?</h1>
     <p>Roblox Studio Developer • UI/UX • Scripting</p>
-    <a href="https://discord.com/users/YOUR_ID_OR_INVITE" target="_blank" rel="noopener">Contact me on Discord</a>
+    <a href="https://discord.com/users/YOUR_ID_OR_INVITE" target="_blank" rel="noopener">Kontakt na Discord</a>
   </header>
 
   <div class="content">
     <div class="card">
-      <h2>Services</h2>
+      <h2>Usługi</h2>
       <ul>
-        <li>UI/UX design and implementation</li>
-        <li>Game logic and system scripting</li>
-        <li>Optimization and debugging</li>
-        <li>Custom systems and monetization setup</li>
+        <li>UI/UX design i implementacja</li>
+        <li>Logika gry i skrypty</li>
+        <li>Optymalizacja i debugowanie</li>
+        <li>Systemy niestandardowe i monetyzacja</li>
       </ul>
     </div>
 
     <div class="card">
-      <h2>Terms</h2>
-      <ul>
-        <li>Work is delivered according to the agreed scope</li>
-        <li>Payment in Robux, negotiated individually</li>
-        <li><strong>No refunds</strong> after delivery of work</li>
-        <li>Client must provide clear requirements and assets if needed</li>
-        <li>Support level depends on selected package</li>
-      </ul>
-    </div>
+      <h2>Cennik</h2>
 
-    <div class="card">
-      <h2>Pricing Packages</h2>
+      <div style="display:flex; justify-content:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
+        <div class="tabs" role="tablist" aria-label="Opcje cennika">
+          <button class="tab-btn active" data-mode="regular">Regular</button>
+          <button class="tab-btn" data-mode="imported">Imported</button>
+          <button class="tab-btn" data-mode="animated">Imported + Animated</button>
+        </div>
+      </div>
 
       <div class="pricing">
         <!-- BASIC -->
         <div class="plan" id="plan-basic">
           <div class="btn-group" role="tablist" aria-label="Basic options">
-            <button type="button" onclick="setBasic('regular')">Regular</button>
-            <button type="button" onclick="setBasic('imported')">Imported</button>
-            <button type="button" onclick="setBasic('animated')">Imported + Animated</button>
+            <button type="button" data-option="regular" class="option-btn active">Regular</button>
+            <button type="button" data-option="imported" class="option-btn">Imported</button>
+            <button type="button" data-option="animated" class="option-btn">Imported + Animated</button>
           </div>
 
-          <h3>Basic Package</h3>
+          <h3>Basic</h3>
+          <p class="lead">Dla indywidualnych twórców • Małe gry</p>
+
           <ul class="features" id="basic-features">
-            <li><span class="icon check">✔️</span> 1 GUI</li>
-            <li><span class="icon check">✔️</span> Basic support</li>
-            <li><span class="icon cross">❌</span> Animated</li>
-            <li><span class="icon cross">❌</span> Imported</li>
+            <!-- wypełniane JS -->
           </ul>
-          <div class="price"><span id="basic-price">500 Robux</span></div>
+
+          <div class="price"><span id="basic-price">$79</span> <span style="font-weight:600; color:var(--muted); font-size:12px;">/project</span></div>
+
+          <div class="cta">
+            <a href="#" class="buy">Zamów</a>
+            <a href="#" class="secondary">Kontakt</a>
+          </div>
         </div>
 
         <!-- PROFESSIONAL -->
         <div class="plan" id="plan-pro">
+          <div class="badge">Popular</div>
+
           <div class="btn-group" role="tablist" aria-label="Professional options">
-            <button type="button" onclick="setPro('regular')">Regular</button>
-            <button type="button" onclick="setPro('imported')">Imported</button>
-            <button type="button" onclick="setPro('animated')">Imported + Animated</button>
+            <button type="button" data-option="regular" class="option-btn active">Regular</button>
+            <button type="button" data-option="imported" class="option-btn">Imported</button>
+            <button type="button" data-option="animated" class="option-btn">Imported + Animated</button>
           </div>
 
-          <h3>Professional</h3>
+          <h3>Pro</h3>
+          <p class="lead">Dla zespołów • Średnie projekty</p>
+
           <ul class="features" id="pro-features">
-            <li><span class="icon check">✔️</span> 3 GUIs</li>
-            <li><span class="icon check">✔️</span> Premium support</li>
-            <li><span class="icon cross">❌</span> Animated</li>
-            <li><span class="icon cross">❌</span> Imported</li>
+            <!-- wypełniane JS -->
           </ul>
-          <div class="price"><span id="pro-price">1,200 Robux</span></div>
+
+          <div class="price"><span id="pro-price">$199</span> <span style="font-weight:600; color:var(--muted); font-size:12px;">/project</span></div>
+
+          <div class="cta">
+            <a href="#" class="buy">Zamów</a>
+            <a href="#" class="secondary">Kontakt</a>
+          </div>
         </div>
 
         <!-- ENTERPRISE -->
         <div class="plan" id="plan-ent">
           <div class="btn-group" role="tablist" aria-label="Enterprise options">
-            <button type="button" onclick="setEnt('regular')">Regular</button>
-            <button type="button" onclick="setEnt('imported')">Imported</button>
-            <button type="button" onclick="setEnt('animated')">Imported + Animated</button>
+            <button type="button" data-option="regular" class="option-btn active">Regular</button>
+            <button type="button" data-option="imported" class="option-btn">Imported</button>
+            <button type="button" data-option="animated" class="option-btn">Imported + Animated</button>
           </div>
 
           <h3>Enterprise</h3>
-          <ul class="features" id="ent-features">
-            <li><span class="icon check">✔️</span> 5 GUIs</li>
-            <li><span class="icon check">✔️</span> Exclusive support</li>
-            <li><span class="icon cross">❌</span> Animated</li>
-            <li><span class="icon cross">❌</span> Imported</li>
-          </ul>
-          <div class="price"><span id="ent-price">2,500 Robux</span></div>
-        </div>
+          <p class="lead">Dla dużych firm • Rozbudowane projekty</p>
 
-        <!-- CUSTOM -->
-        <div class="plan" id="plan-custom">
-          <h3>Custom</h3>
-          <p>For unique or advanced projects</p>
-          <ul>
-            <li>Flexible GUI count</li>
-            <li>Advanced systems</li>
-            <li>Full consultation</li>
+          <ul class="features" id="ent-features">
+            <!-- wypełniane JS -->
           </ul>
-          <div class="price">Contact for pricing</div>
+
+          <div class="price"><span id="ent-price">$599</span> <span style="font-weight:600; color:var(--muted); font-size:12px;">/project</span></div>
+
+          <div class="cta">
+            <a href="#" class="buy">Zamów</a>
+            <a href="#" class="secondary">Kontakt</a>
+          </div>
         </div>
       </div>
 
-      <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
+      <p class="note">Wszystkie płatności i finalne ceny zależą od złożoności projektu. Ceny pokazane powyżej to przykładowe stawki.</p>
     </div>
   </div>
 
@@ -163,122 +298,215 @@
   </footer>
 
   <script>
-    // Set current year
+    // Ustaw rok w stopce
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Helper to build feature list items with colored icons
+    // Pomocnicze funkcje do tworzenia elementów listy
     function liCheck(text) {
-      return '<li><span class="icon check">✔️</span> ' + text + '</li>';
+      return '<li><span class="icon check">✔</span> <strong>' + text + '</strong></li>';
     }
     function liCross(text) {
-      return '<li><span class="icon cross">❌</span> ' + text + '</li>';
+      return '<li><span class="icon cross">✖</span> ' + text + '</li>';
     }
 
-    // BASIC package behavior
-    function setBasic(option) {
-      const features = document.getElementById('basic-features');
-      const price = document.getElementById('basic-price');
-
-      if (option === 'regular') {
-        features.innerHTML = ''
-          + liCheck('1 GUI')
-          + liCheck('Basic support')
-          + liCross('Animated')
-          + liCross('Imported');
-        price.textContent = '500 Robux';
+    // Definicje zawartości dla trybów i pakietów
+    const data = {
+      basic: {
+        regular: {
+          price: '$79',
+          features: [
+            ['1 Frame', true],
+            ['2 Buttons', true],
+            ['Vector Format', true],
+            ['Basic Support', true],
+            ['Standard Designs', true],
+            ['Design Presentation', false],
+            ['Revisions', false],
+            ['Imported', false],
+            ['Animated', false]
+          ]
+        },
+        imported: {
+          price: '$119',
+          features: [
+            ['1 Frame', true],
+            ['2 Buttons', true],
+            ['Vector Format', true],
+            ['Basic Support', true],
+            ['Standard Designs', true],
+            ['Design Presentation', false],
+            ['Revisions', false],
+            ['Imported', true],
+            ['Animated', false]
+          ]
+        },
+        animated: {
+          price: '$149',
+          features: [
+            ['1 Frame', true],
+            ['2 Buttons', true],
+            ['Vector Format', true],
+            ['Basic Support', true],
+            ['Standard Designs', true],
+            ['Design Presentation', true],
+            ['Revisions', false],
+            ['Imported', true],
+            ['Animated', true]
+          ]
+        }
+      },
+      pro: {
+        regular: {
+          price: '$199',
+          features: [
+            ['2-3 Frames', true],
+            ['Unlimited Buttons', true],
+            ['Vector Format', true],
+            ['Premium Support', true],
+            ['Advanced Designs', true],
+            ['Design Presentation', true],
+            ['3 Revisions', true],
+            ['Imported', false],
+            ['Animated', false]
+          ]
+        },
+        imported: {
+          price: '$249',
+          features: [
+            ['2-3 Frames', true],
+            ['Unlimited Buttons', true],
+            ['Vector Format', true],
+            ['Premium Support', true],
+            ['Advanced Designs', true],
+            ['Design Presentation', true],
+            ['3 Revisions', true],
+            ['Imported', true],
+            ['Animated', false]
+          ]
+        },
+        animated: {
+          price: '$299',
+          features: [
+            ['2-3 Frames', true],
+            ['Unlimited Buttons', true],
+            ['Vector Format', true],
+            ['Premium Support', true],
+            ['Advanced Designs', true],
+            ['Design Presentation', true],
+            ['3 Revisions', true],
+            ['Imported', true],
+            ['Animated', true]
+          ]
+        }
+      },
+      ent: {
+        regular: {
+          price: '$599',
+          features: [
+            ['8+ Frames', true],
+            ['Unlimited Buttons', true],
+            ['Vector Format', true],
+            ['Exclusive Support', true],
+            ['Expert Designs', true],
+            ['Design Presentation', true],
+            ['5 Revisions', true],
+            ['Imported', false],
+            ['Animated', false]
+          ]
+        },
+        imported: {
+          price: '$699',
+          features: [
+            ['8+ Frames', true],
+            ['Unlimited Buttons', true],
+            ['Vector Format', true],
+            ['Exclusive Support', true],
+            ['Expert Designs', true],
+            ['Design Presentation', true],
+            ['5 Revisions', true],
+            ['Imported', true],
+            ['Animated', false]
+          ]
+        },
+        animated: {
+          price: '$799',
+          features: [
+            ['8+ Frames', true],
+            ['Unlimited Buttons', true],
+            ['Vector Format', true],
+            ['Exclusive Support', true],
+            ['Expert Designs', true],
+            ['Design Presentation', true],
+            ['5 Revisions', true],
+            ['Imported', true],
+            ['Animated', true]
+          ]
+        }
       }
+    };
 
-      if (option === 'imported') {
-        features.innerHTML = ''
-          + liCheck('1 GUI')
-          + liCheck('Basic support')
-          + liCross('Animated')
-          + liCheck('Imported');
-        price.textContent = '800 Robux';
-      }
+    // Funkcja do renderowania listy cech i ceny
+    function renderPlan(planId, planKey, mode) {
+      const container = document.getElementById(planId + '-features');
+      const priceEl = document.getElementById(planId + '-price');
+      const planData = data[planKey][mode];
 
-      if (option === 'animated') {
-        features.innerHTML = ''
-          + liCheck('1 GUI')
-          + liCheck('Basic support')
-          + liCheck('Animated')
-          + liCheck('Imported');
-        price.textContent = '1,100 Robux';
-      }
+      // Zbuduj HTML cech
+      let html = '';
+      planData.features.forEach(([text, ok]) => {
+        html += ok ? liCheck(text) : liCross(text);
+      });
+      container.innerHTML = html;
+      priceEl.textContent = planData.price;
     }
 
-    // PROFESSIONAL package behavior
-    function setPro(option) {
-      const features = document.getElementById('pro-features');
-      const price = document.getElementById('pro-price');
-
-      if (option === 'regular') {
-        features.innerHTML = ''
-          + liCheck('3 GUIs')
-          + liCheck('Premium support')
-          + liCross('Animated')
-          + liCross('Imported');
-        price.textContent = '1,200 Robux';
-      }
-
-      if (option === 'imported') {
-        features.innerHTML = ''
-          + liCheck('3 GUIs')
-          + liCheck('Premium support')
-          + liCross('Animated')
-          + liCheck('Imported');
-        price.textContent = '1,500 Robux';
-      }
-
-      if (option === 'animated') {
-        features.innerHTML = ''
-          + liCheck('3 GUIs')
-          + liCheck('Premium support')
-          + liCheck('Animated')
-          + liCheck('Imported');
-        price.textContent = '1,800 Robux';
-      }
+    // Inicjalizacja domyślna
+    function initDefaults() {
+      renderPlan('basic', 'basic', 'regular');
+      renderPlan('pro', 'pro', 'regular');
+      renderPlan('ent', 'ent', 'regular');
     }
 
-    // ENTERPRISE package behavior
-    function setEnt(option) {
-      const features = document.getElementById('ent-features');
-      const price = document.getElementById('ent-price');
+    initDefaults();
 
-      if (option === 'regular') {
-        features.innerHTML = ''
-          + liCheck('5 GUIs')
-          + liCheck('Exclusive support')
-          + liCross('Animated')
-          + liCross('Imported');
-        price.textContent = '2,500 Robux';
-      }
+    // Obsługa przycisków wewnątrz każdej karty (option-btn)
+    document.querySelectorAll('.plan').forEach(planEl => {
+      const planId = planEl.id; // plan-basic, plan-pro, plan-ent
+      const key = planId.split('-')[1]; // basic, pro, ent
 
-      if (option === 'imported') {
-        features.innerHTML = ''
-          + liCheck('5 GUIs')
-          + liCheck('Exclusive support')
-          + liCross('Animated')
-          + liCheck('Imported');
-        price.textContent = '3,000 Robux';
-      }
+      planEl.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          // ustaw aktywny przycisk w tej grupie
+          planEl.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
 
-      if (option === 'animated') {
-        features.innerHTML = ''
-          + liCheck('5 GUIs')
-          + liCheck('Exclusive support')
-          + liCheck('Animated')
-          + liCheck('Imported');
-        price.textContent = '3,500 Robux';
-      }
-    }
+          const mode = btn.getAttribute('data-option'); // regular/imported/animated
+          renderPlan(planId.split('-')[1], key, mode);
+        });
+      });
+    });
 
-    // Initialize default states
-    (function initDefaults(){
-      setBasic('regular');
-      setPro('regular');
-      setEnt('regular');
-    })();
+    // Obsługa globalnych zakładek (tabs) - zmienia wszystkie plany jednocześnie
+    document.querySelectorAll('.tabs .tab-btn').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tabs .tab-btn').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const mode = tab.getAttribute('data-mode'); // regular/imported/animated
+
+        // Zaktualizuj każdy plan: ustaw aktywny przycisk i wyrenderuj
+        document.querySelectorAll('.plan').forEach(planEl => {
+          planEl.querySelectorAll('.option-btn').forEach(b => {
+            b.classList.remove('active');
+            if (b.getAttribute('data-option') === mode) b.classList.add('active');
+          });
+          const planKey = planEl.id.split('-')[1];
+          renderPlan(planKey, planKey, mode);
+        });
+      });
+    });
+
+    // Ustawienie aktywnego stylu dla przycisków w headerze kart (opcjonalne)
+    // (zachowujemy spójność: jeśli użytkownik kliknie lokalny przycisk, globalne zakładki się nie zmieniają)
   </script>
 </body>
 </html>
