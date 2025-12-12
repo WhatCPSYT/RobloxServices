@@ -163,8 +163,20 @@
       box-shadow:none;
     }
 
-    /* Terms area */
-    .terms {
+    /* Terms area (now inside same card as Services) */
+    .terms-box {
+      margin-top:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      border-radius:10px;
+      padding:14px;
+      color:var(--muted);
+      font-size:14px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .terms-box h4 { margin:6px 0 8px; color:var(--text); }
+    .terms-box ul { margin:8px 0 12px 18px; }
+
+    .terms-inline {
       display:flex;
       align-items:center;
       gap:10px;
@@ -173,28 +185,14 @@
       color:var(--muted);
       font-size:13px;
     }
-    .terms input[type="checkbox"] {
+    .terms-inline input[type="checkbox"] {
       width:16px;
       height:16px;
       accent-color: var(--accent-2);
       cursor:pointer;
     }
-    .terms a { color:var(--accent-2); text-decoration:none; font-weight:700; }
-    .terms a:hover { text-decoration:underline; }
-
-    /* Shared terms details (hidden by default, opened via link) */
-    .terms-details {
-      max-width:900px;
-      margin:18px auto 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border-radius:10px;
-      padding:14px;
-      color:var(--muted);
-      font-size:14px;
-      border:1px solid rgba(255,255,255,0.02);
-    }
-    .terms-details h4 { margin:8px 0; color:var(--text); }
-    .terms-details ul { margin:8px 0 12px 18px; }
+    .terms-inline a { color:var(--accent-2); text-decoration:none; font-weight:700; }
+    .terms-inline a:hover { text-decoration:underline; }
 
     footer { text-align:center; padding:18px; color:var(--muted); margin-top:18px; }
 
@@ -214,7 +212,8 @@
   </header>
 
   <div class="content">
-    <div class="card">
+    <!-- Services card: now includes Services list and the full Terms box -->
+    <div class="card" id="services-card">
       <h2>Services</h2>
       <ul>
         <li>UI/UX design and implementation</li>
@@ -222,85 +221,9 @@
         <li>Optimization and debugging</li>
         <li>Custom systems and monetization setup</li>
       </ul>
-    </div>
 
-    <div class="card">
-      <h2>Pricing</h2>
-
-      <div style="display:flex; justify-content:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
-        <div class="tabs" role="tablist" aria-label="Pricing modes">
-          <button class="tab-btn active" data-mode="regular">Regular</button>
-          <button class="tab-btn" data-mode="imported">Imported</button>
-          <button class="tab-btn" data-mode="animated">Imported + Animated</button>
-        </div>
-      </div>
-
-      <div class="pricing">
-        <!-- BASIC -->
-        <div class="plan" id="plan-basic">
-          <h3>Basic</h3>
-          <p class="lead">For individuals • Small games</p>
-
-          <ul class="features" id="basic-features"></ul>
-
-          <div class="price"><span id="basic-price">500 Robux</span><span class="currency">/project</span></div>
-
-          <div class="terms">
-            <input id="basic-terms" type="checkbox" />
-            <label for="basic-terms">I agree to the <a href="#terms" id="open-terms">Terms & Conditions</a></label>
-          </div>
-
-          <div class="cta">
-            <button id="basic-order" disabled>Order</button>
-            <a href="#" class="secondary">Contact</a>
-          </div>
-        </div>
-
-        <!-- PROFESSIONAL -->
-        <div class="plan" id="plan-pro">
-          <h3>Professional</h3>
-          <p class="lead">For passionate teams • Medium-scale games</p>
-
-          <ul class="features" id="pro-features"></ul>
-
-          <div class="price"><span id="pro-price">1,200 Robux</span><span class="currency">/project</span></div>
-
-          <div class="terms">
-            <input id="pro-terms" type="checkbox" />
-            <label for="pro-terms">I agree to the <a href="#terms" id="open-terms-2">Terms & Conditions</a></label>
-          </div>
-
-          <div class="cta">
-            <button id="pro-order" disabled>Order</button>
-            <a href="#" class="secondary">Contact</a>
-          </div>
-        </div>
-
-        <!-- ENTERPRISE -->
-        <div class="plan" id="plan-ent">
-          <h3>Enterprise</h3>
-          <p class="lead">For big companies • Large-scale games</p>
-
-          <ul class="features" id="ent-features"></ul>
-
-          <div class="price"><span id="ent-price">2,500 Robux</span><span class="currency">/project</span></div>
-
-          <div class="terms">
-            <input id="ent-terms" type="checkbox" />
-            <label for="ent-terms">I agree to the <a href="#terms" id="open-terms-3">Terms & Conditions</a></label>
-          </div>
-
-          <div class="cta">
-            <button id="ent-order" disabled>Order</button>
-            <a href="#" class="secondary">Contact</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
-
-      <!-- Shared Terms & Conditions details -->
-      <div id="terms" class="terms-details" aria-hidden="false">
+      <!-- Terms box placed inside the same card as Services -->
+      <div class="terms-box" id="services-terms">
         <h4>Terms & Conditions — What is included</h4>
 
         <p><strong>Included with every package</strong></p>
@@ -346,9 +269,86 @@
         </ul>
 
         <p style="margin-top:8px; color:var(--muted); font-size:13px;">
-          By checking the Terms & Conditions checkbox you confirm that you have read and agree to the above. For custom requests or enterprise agreements, contact me directly on Discord to get a tailored quote and contract.
+          By checking the Terms & Conditions checkbox on a plan you confirm that you have read and agree to the above. For custom requests or enterprise agreements, contact me directly on Discord to get a tailored quote and contract.
         </p>
       </div>
+    </div>
+
+    <!-- Pricing card -->
+    <div class="card">
+      <h2>Pricing</h2>
+
+      <div style="display:flex; justify-content:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
+        <div class="tabs" role="tablist" aria-label="Pricing modes">
+          <button class="tab-btn active" data-mode="regular">Regular</button>
+          <button class="tab-btn" data-mode="imported">Imported</button>
+          <button class="tab-btn" data-mode="animated">Imported + Animated</button>
+        </div>
+      </div>
+
+      <div class="pricing">
+        <!-- BASIC -->
+        <div class="plan" id="plan-basic">
+          <h3>Basic</h3>
+          <p class="lead">For individuals • Small games</p>
+
+          <ul class="features" id="basic-features"></ul>
+
+          <div class="price"><span id="basic-price">500 Robux</span><span class="currency">/project</span></div>
+
+          <div class="terms-inline">
+            <input id="basic-terms" type="checkbox" />
+            <label for="basic-terms">I agree to the <a href="#services-terms">Terms & Conditions</a></label>
+          </div>
+
+          <div class="cta">
+            <button id="basic-order" disabled>Order</button>
+            <a href="#" class="secondary">Contact</a>
+          </div>
+        </div>
+
+        <!-- PROFESSIONAL -->
+        <div class="plan" id="plan-pro">
+          <h3>Professional</h3>
+          <p class="lead">For passionate teams • Medium-scale games</p>
+
+          <ul class="features" id="pro-features"></ul>
+
+          <div class="price"><span id="pro-price">1,200 Robux</span><span class="currency">/project</span></div>
+
+          <div class="terms-inline">
+            <input id="pro-terms" type="checkbox" />
+            <label for="pro-terms">I agree to the <a href="#services-terms">Terms & Conditions</a></label>
+          </div>
+
+          <div class="cta">
+            <button id="pro-order" disabled>Order</button>
+            <a href="#" class="secondary">Contact</a>
+          </div>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div class="plan" id="plan-ent">
+          <h3>Enterprise</h3>
+          <p class="lead">For big companies • Large-scale games</p>
+
+          <ul class="features" id="ent-features"></ul>
+
+          <div class="price"><span id="ent-price">2,500 Robux</span><span class="currency">/project</span></div>
+
+          <div class="terms-inline">
+            <input id="ent-terms" type="checkbox" />
+            <label for="ent-terms">I agree to the <a href="#services-terms">Terms & Conditions</a></label>
+          </div>
+
+          <div class="cta">
+            <button id="ent-order" disabled>Order</button>
+            <a href="#" class="secondary">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
     </div>
   </div>
 
@@ -368,7 +368,7 @@
       return '<li><span class="icon cross">✖</span> ' + text + '</li>';
     }
 
-    // Robux pricing data
+    // Robux pricing data (with revisions/support details)
     const data = {
       basic: {
         regular: {
@@ -513,11 +513,11 @@
     }
     ['basic','pro','ent'].forEach(wireTerms);
 
-    // Open terms anchors scroll into view
-    document.querySelectorAll('#open-terms, #open-terms-2, #open-terms-3').forEach(el => {
-      el.addEventListener('click', (e) => {
+    // Smooth scroll when clicking Terms links inside plan checkboxes
+    document.querySelectorAll('.terms-inline a').forEach(a => {
+      a.addEventListener('click', (e) => {
         e.preventDefault();
-        document.getElementById('terms').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('services-terms').scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     });
 
