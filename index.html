@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WhatCPS?</title>
+  <title>WhatCPS? — Pricing</title>
   <style>
     :root{
       --bg:#0b0b0d;
@@ -113,6 +113,7 @@
       font-size:14px;
       color:var(--muted);
       opacity:0;
+      will-change: transform, opacity;
     }
 
     .feature-item strong { color:var(--text); font-weight:700; }
@@ -131,10 +132,95 @@
     .check { color:var(--green); background: rgba(126,240,138,0.06); border:1px solid rgba(126,240,138,0.06); }
     .cross { color:var(--red); background: rgba(255,107,107,0.04); border:1px solid rgba(255,107,107,0.03); }
 
+    /* Animations */
+    @keyframes slideUpFade {
+      0% { transform: translateY(18px); opacity: 0; }
+      60% { transform: translateY(-6px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes slideDownFade {
+      0% { transform: translateY(-18px); opacity: 0; }
+      60% { transform: translateY(6px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .feature-item.up { animation: slideUpFade 520ms cubic-bezier(.2,.9,.2,1) both; }
+    .feature-item.down { animation: slideDownFade 520ms cubic-bezier(.2,.9,.2,1) both; }
+    .feature-item { animation-delay: var(--delay, 0ms); }
+
+    .note { font-size:0.92rem; color:var(--muted); margin-top:12px; text-align:center; }
+
+    .cta {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .cta a, .cta button {
+      background:var(--accent);
+      color:#000;
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:800;
+      text-decoration:none;
+      box-shadow: 0 10px 30px rgba(255,105,180,0.08);
+      border: none;
+      cursor: pointer;
+    }
+    .cta a.secondary, .cta button.secondary {
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      padding:10px 14px;
+    }
+    .cta button[disabled] {
+      opacity:0.45;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    /* Terms box */
+    .terms-box {
+      margin-top:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      border-radius:10px;
+      padding:14px;
+      color:var(--muted);
+      font-size:14px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .terms-box h4 { margin:6px 0 8px; color:var(--text); }
+    .terms-box ul { margin:8px 0 12px 18px; }
+
+    .terms-inline {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+      margin-top:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .terms-inline input[type="checkbox"] {
+      width:16px;
+      height:16px;
+      accent-color: var(--accent-2);
+      cursor:pointer;
+    }
+    .terms-inline a { color:var(--accent-2); text-decoration:none; font-weight:700; }
+    .terms-inline a:hover { text-decoration:underline; }
+
     footer { text-align:center; padding:18px; color:var(--muted); margin-top:18px; }
+
+    @media (max-width:980px){
+      .pricing{flex-direction:column; align-items:stretch}
+      .plan{width:100%}
+      .tab-btn{min-width:90px}
+    }
   </style>
 </head>
-
 <body>
   <header>
     <h1>WhatCPS?</h1>
@@ -157,7 +243,7 @@
       </ul>
     </div>
 
-    <!-- TERMS BOX (SEPARATE) -->
+    <!-- TERMS BOX -->
     <div class="card" id="services-terms">
       <h2>Terms & Conditions — What is included</h2>
 
@@ -201,11 +287,11 @@
       <ul>
         <li>Full refund before work begins.</li>
         <li>Pro-rated refund after work starts.</li>
-        <li>Refunds reduced by Roblox tax (~30%).</li>
+        <li>Refunds may be reduced by Roblox transaction fees (approximately 30%).</li>
       </ul>
     </div>
 
-    <!-- PRICING (unchanged except fixed anchor target) -->
+    <!-- PRICING -->
     <div class="card" id="pricing">
       <h2>Pricing</h2>
 
@@ -278,6 +364,8 @@
           </div>
         </div>
       </div>
+
+      <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
     </div>
 
   </div>
@@ -285,5 +373,226 @@
   <footer>
     © <span id="year"></span> WhatCPS?
   </footer>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Helper to create feature HTML with animation classes and delay
+    function featureHTML(text, ok, delayMs) {
+      const cls = ok ? 'up' : 'down';
+      const iconClass = ok ? 'check' : 'cross';
+      const icon = ok ? '✔' : '✖';
+      return `<li class="feature-item ${cls}" style="--delay:${delayMs}ms"><span class="icon ${iconClass}">${icon}</span> <strong>${text}</strong></li>`;
+    }
+
+    // Pricing data
+    const data = {
+      basic: {
+        regular: {
+          price: '500 Robux',
+          features: [
+            ['1 GUI', true],
+            ['2 Scripts', true],
+            ['Basic support', true],
+            ['Animated', false],
+            ['Imported', false],
+            ['1 revision', true]
+          ]
+        },
+        imported: {
+          price: '800 Robux',
+          features: [
+            ['1 GUI', true],
+            ['2 Scripts', true],
+            ['Basic support', true],
+            ['Animated', false],
+            ['Imported', true],
+            ['1 revision', true]
+          ]
+        },
+        animated: {
+          price: '1,100 Robux',
+          features: [
+            ['1 GUI', true],
+            ['2 Scripts', true],
+            ['Basic support', true],
+            ['Animated', true],
+            ['Imported', true],
+            ['2 revisions', true]
+          ]
+        }
+      },
+      pro: {
+        regular: {
+          price: '1,200 Robux',
+          features: [
+            ['3 GUIs', true],
+            ['5 Scripts', true],
+            ['Premium support', true],
+            ['Animated', false],
+            ['Imported', false],
+            ['3 revisions', true]
+          ]
+        },
+        imported: {
+          price: '1,500 Robux',
+          features: [
+            ['3 GUIs', true],
+            ['5 Scripts', true],
+            ['Premium support', true],
+            ['Animated', false],
+            ['Imported', true],
+            ['3 revisions', true]
+          ]
+        },
+        animated: {
+          price: '1,800 Robux',
+          features: [
+            ['3 GUIs', true],
+            ['5 Scripts', true],
+            ['Premium support', true],
+            ['Animated', true],
+            ['Imported', true],
+            ['4 revisions', true]
+          ]
+        }
+      },
+      ent: {
+        regular: {
+          price: '2,500 Robux',
+          features: [
+            ['5 GUIs', true],
+            ['8 Scripts', true],
+            ['Exclusive support', true],
+            ['Animated', false],
+            ['Imported', false],
+            ['5 revisions', true]
+          ]
+        },
+        imported: {
+          price: '3,000 Robux',
+          features: [
+            ['5 GUIs', true],
+            ['8 Scripts', true],
+            ['Exclusive support', true],
+            ['Animated', false],
+            ['Imported', true],
+            ['5 revisions', true]
+          ]
+        },
+        animated: {
+          price: '3,500 Robux',
+          features: [
+            ['5 GUIs', true],
+            ['8 Scripts', true],
+            ['Exclusive support', true],
+            ['Animated', true],
+            ['Imported', true],
+            ['6 revisions', true]
+          ]
+        }
+      }
+    };
+
+    // Render plan: checks first, then crosses; staggered animation delays
+    function renderPlan(planKey, mode) {
+      const container = document.getElementById(planKey + '-features');
+      const priceEl = document.getElementById(planKey + '-price');
+      const planData = data[planKey][mode];
+
+      const checks = planData.features.filter(f => f[1]);
+      const crosses = planData.features.filter(f => !f[1]);
+
+      let html = '';
+      let delay = 0;
+      const step = 80; // ms between items
+      checks.forEach(([text, ok]) => {
+        html += featureHTML(text, ok, delay);
+        delay += step;
+      });
+      delay += 80; // small gap before crosses
+      crosses.forEach(([text, ok]) => {
+        html += featureHTML(text, ok, delay);
+        delay += step;
+      });
+
+      container.innerHTML = html;
+
+      // Apply animationDelay from CSS variable to inline style for compatibility
+      container.querySelectorAll('.feature-item').forEach(item => {
+        const delayVal = item.style.getPropertyValue('--delay') || '0ms';
+        item.style.animationDelay = delayVal.trim();
+      });
+
+      priceEl.textContent = planData.price;
+    }
+
+    // Initialize defaults
+    function initDefaults() {
+      renderPlan('basic', 'regular');
+      renderPlan('pro', 'regular');
+      renderPlan('ent', 'regular');
+    }
+    initDefaults();
+
+    // Top tabs control all plans and replay animations
+    document.querySelectorAll('.tabs .tab-btn').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tabs .tab-btn').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const mode = tab.getAttribute('data-mode'); // regular/imported/animated
+        ['basic','pro','ent'].forEach(planKey => {
+          renderPlan(planKey, mode);
+        });
+      });
+    });
+
+    // Terms checkbox logic: enable order button only when terms checked
+    function wireTerms(planKey) {
+      const checkbox = document.getElementById(planKey + '-terms');
+      const orderBtn = document.getElementById(planKey + '-order');
+      if (!checkbox || !orderBtn) return;
+      checkbox.addEventListener('change', () => {
+        orderBtn.disabled = !checkbox.checked;
+      });
+    }
+    ['basic','pro','ent'].forEach(wireTerms);
+
+    // Smooth scroll when clicking Terms links inside plan checkboxes
+    document.querySelectorAll('.terms-inline a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('services-terms').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+
+    // Order button placeholder behavior
+    document.querySelectorAll('.cta button').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (btn.disabled) return;
+        alert('Thanks — an order request has been initiated. Please contact me on Discord to finalize details.');
+      });
+    });
+
+    // Optional: keyboard accessibility for tabs (left/right)
+    (function addTabKeyboard() {
+      const tabs = Array.from(document.querySelectorAll('.tabs .tab-btn'));
+      tabs.forEach((tab, idx) => {
+        tab.setAttribute('tabindex', '0');
+        tab.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+            const next = tabs[(idx + 1) % tabs.length];
+            next.focus();
+            next.click();
+          } else if (e.key === 'ArrowLeft') {
+            const prev = tabs[(idx - 1 + tabs.length) % tabs.length];
+            prev.focus();
+            prev.click();
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
