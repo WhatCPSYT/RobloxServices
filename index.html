@@ -182,6 +182,20 @@
     .terms a { color:var(--accent-2); text-decoration:none; font-weight:700; }
     .terms a:hover { text-decoration:underline; }
 
+    /* Shared terms details (hidden by default, opened via link) */
+    .terms-details {
+      max-width:900px;
+      margin:18px auto 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      border-radius:10px;
+      padding:14px;
+      color:var(--muted);
+      font-size:14px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .terms-details h4 { margin:8px 0; color:var(--text); }
+    .terms-details ul { margin:8px 0 12px 18px; }
+
     footer { text-align:center; padding:18px; color:var(--muted); margin-top:18px; }
 
     /* Responsive */
@@ -233,7 +247,7 @@
 
           <div class="terms">
             <input id="basic-terms" type="checkbox" />
-            <label for="basic-terms">I agree to the <a href="#" target="_blank" rel="noopener">Terms & Conditions</a></label>
+            <label for="basic-terms">I agree to the <a href="#terms" id="open-terms">Terms & Conditions</a></label>
           </div>
 
           <div class="cta">
@@ -253,7 +267,7 @@
 
           <div class="terms">
             <input id="pro-terms" type="checkbox" />
-            <label for="pro-terms">I agree to the <a href="#" target="_blank" rel="noopener">Terms & Conditions</a></label>
+            <label for="pro-terms">I agree to the <a href="#terms" id="open-terms-2">Terms & Conditions</a></label>
           </div>
 
           <div class="cta">
@@ -273,7 +287,7 @@
 
           <div class="terms">
             <input id="ent-terms" type="checkbox" />
-            <label for="ent-terms">I agree to the <a href="#" target="_blank" rel="noopener">Terms & Conditions</a></label>
+            <label for="ent-terms">I agree to the <a href="#terms" id="open-terms-3">Terms & Conditions</a></label>
           </div>
 
           <div class="cta">
@@ -284,6 +298,57 @@
       </div>
 
       <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
+
+      <!-- Shared Terms & Conditions details -->
+      <div id="terms" class="terms-details" aria-hidden="false">
+        <h4>Terms & Conditions — What is included</h4>
+
+        <p><strong>Included with every package</strong></p>
+        <ul>
+          <li><strong>Design files:</strong> Final GUI delivered as PNG/SVG and Roblox-ready assets where applicable.</li>
+          <li><strong>Implementation-ready:</strong> UI elements prepared for import into Roblox Studio (frames, buttons, icons).</li>
+          <li><strong>Basic testing:</strong> Visual and functional checks in a test place to ensure UI behaves as expected.</li>
+          <li><strong>Support window:</strong> 7 days of free support after delivery for minor fixes and guidance.</li>
+          <li><strong>Revisions:</strong> Number of revisions depends on the plan (see plan details). Revisions cover layout and visual tweaks, not full redesigns.</li>
+          <li><strong>Delivery time:</strong> Estimated delivery is provided per plan and per selected mode; final ETA confirmed after project scope is agreed.</li>
+        </ul>
+
+        <p><strong>Imported / Animated options</strong></p>
+        <ul>
+          <li><strong>Imported:</strong> I will import provided assets (icons, sprites) and adapt them to the UI. If assets require conversion, additional time may apply.</li>
+          <li><strong>Animated:</strong> Includes basic UI animations (transitions, button hover, simple tweening). Complex timeline animations or cinematics are quoted separately.</li>
+        </ul>
+
+        <p><strong>What is not included</strong></p>
+        <ul>
+          <li>Full game logic, server-side systems, or monetization setup beyond simple UI hooks (these can be quoted separately).</li>
+          <li>Third-party paid assets or licenses — you must provide or purchase them.</li>
+          <li>Extensive reworks that change the original scope — these will require a new quote.</li>
+        </ul>
+
+        <p><strong>Payment & delivery</strong></p>
+        <ul>
+          <li>Payment is accepted in Robux via agreed method (Game Pass, Developer Product, or other mutually agreed flow).</li>
+          <li>Work begins after payment or agreed deposit is received.</li>
+          <li>Final files and delivery are provided after full payment and acceptance of the delivered work.</li>
+        </ul>
+
+        <p><strong>License & ownership</strong></p>
+        <ul>
+          <li>Upon full payment, you receive the right to use the delivered UI in your project(s).</li>
+          <li>I retain the right to showcase the work in my portfolio unless a separate NDA or private agreement is made.</li>
+        </ul>
+
+        <p><strong>Cancellation & refunds</strong></p>
+        <ul>
+          <li>If the project is canceled before work starts, a full refund is possible.</li>
+          <li>If work has already started, refunds are handled pro-rata based on completed milestones and time spent.</li>
+        </ul>
+
+        <p style="margin-top:8px; color:var(--muted); font-size:13px;">
+          By checking the Terms & Conditions checkbox you confirm that you have read and agree to the above. For custom requests or enterprise agreements, contact me directly on Discord to get a tailored quote and contract.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -310,27 +375,30 @@
           price: '500 Robux',
           features: [
             ['1 GUI', true],
-            ['Basic support', true],
+            ['Basic support (7 days)', true],
             ['Animated', false],
-            ['Imported', false]
+            ['Imported', false],
+            ['1 revision', true]
           ]
         },
         imported: {
           price: '800 Robux',
           features: [
             ['1 GUI', true],
-            ['Basic support', true],
+            ['Basic support (7 days)', true],
             ['Animated', false],
-            ['Imported', true]
+            ['Imported', true],
+            ['1 revision', true]
           ]
         },
         animated: {
           price: '1,100 Robux',
           features: [
             ['1 GUI', true],
-            ['Basic support', true],
+            ['Basic support (7 days)', true],
             ['Animated', true],
-            ['Imported', true]
+            ['Imported', true],
+            ['2 revisions', true]
           ]
         }
       },
@@ -339,27 +407,30 @@
           price: '1,200 Robux',
           features: [
             ['3 GUIs', true],
-            ['Premium support', true],
+            ['Premium support (14 days)', true],
             ['Animated', false],
-            ['Imported', false]
+            ['Imported', false],
+            ['3 revisions', true]
           ]
         },
         imported: {
           price: '1,500 Robux',
           features: [
             ['3 GUIs', true],
-            ['Premium support', true],
+            ['Premium support (14 days)', true],
             ['Animated', false],
-            ['Imported', true]
+            ['Imported', true],
+            ['3 revisions', true]
           ]
         },
         animated: {
           price: '1,800 Robux',
           features: [
             ['3 GUIs', true],
-            ['Premium support', true],
+            ['Premium support (14 days)', true],
             ['Animated', true],
-            ['Imported', true]
+            ['Imported', true],
+            ['4 revisions', true]
           ]
         }
       },
@@ -368,27 +439,30 @@
           price: '2,500 Robux',
           features: [
             ['5 GUIs', true],
-            ['Exclusive support', true],
+            ['Exclusive support (30 days)', true],
             ['Animated', false],
-            ['Imported', false]
+            ['Imported', false],
+            ['5 revisions', true]
           ]
         },
         imported: {
           price: '3,000 Robux',
           features: [
             ['5 GUIs', true],
-            ['Exclusive support', true],
+            ['Exclusive support (30 days)', true],
             ['Animated', false],
-            ['Imported', true]
+            ['Imported', true],
+            ['5 revisions', true]
           ]
         },
         animated: {
           price: '3,500 Robux',
           features: [
             ['5 GUIs', true],
-            ['Exclusive support', true],
+            ['Exclusive support (30 days)', true],
             ['Animated', true],
-            ['Imported', true]
+            ['Imported', true],
+            ['6 revisions', true]
           ]
         }
       }
@@ -439,11 +513,18 @@
     }
     ['basic','pro','ent'].forEach(wireTerms);
 
+    // Open terms anchors scroll into view
+    document.querySelectorAll('#open-terms, #open-terms-2, #open-terms-3').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('terms').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+
     // Optional: handle order clicks (placeholder)
     document.querySelectorAll('.cta button').forEach(btn => {
       btn.addEventListener('click', (e) => {
         if (btn.disabled) return;
-        // Example behavior: open contact or start order flow
         alert('Thanks — an order request has been initiated. Please contact me on Discord to finalize details.');
       });
     });
