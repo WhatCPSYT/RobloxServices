@@ -64,7 +64,6 @@
     .plan h3 { margin:12px 0 6px; font-size:20px; }
     .plan p.lead { margin:0 0 12px; color:var(--muted); font-size:14px; }
 
-    /* Top tabs */
     .tabs {
       display:flex;
       gap:8px;
@@ -114,8 +113,6 @@
       font-size:14px;
       color:var(--muted);
       opacity:0;
-      transform: translateY(0);
-      will-change: transform, opacity;
     }
 
     .feature-item strong { color:var(--text); font-weight:700; }
@@ -134,93 +131,10 @@
     .check { color:var(--green); background: rgba(126,240,138,0.06); border:1px solid rgba(126,240,138,0.06); }
     .cross { color:var(--red); background: rgba(255,107,107,0.04); border:1px solid rgba(255,107,107,0.03); }
 
-    @keyframes slideUpFade {
-      0% { transform: translateY(18px); opacity: 0; }
-      60% { transform: translateY(-6px); opacity: 1; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes slideDownFade {
-      0% { transform: translateY(-18px); opacity: 0; }
-      60% { transform: translateY(6px); opacity: 1; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-
-    .feature-item.up { animation: slideUpFade 520ms cubic-bezier(.2,.9,.2,1) both; }
-    .feature-item.down { animation: slideDownFade 520ms cubic-bezier(.2,.9,.2,1) both; }
-    .feature-item { animation-delay: var(--delay, 0ms); }
-
-    .note { font-size:0.92rem; color:var(--muted); margin-top:12px; text-align:center; }
-
-    .cta {
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      margin-top:14px;
-      flex-wrap:wrap;
-    }
-    .cta a, .cta button {
-      background:var(--accent);
-      color:#000;
-      padding:10px 16px;
-      border-radius:10px;
-      font-weight:800;
-      text-decoration:none;
-      box-shadow: 0 10px 30px rgba(255,105,180,0.08);
-      border: none;
-      cursor: pointer;
-    }
-    .cta a.secondary, .cta button.secondary {
-      background:transparent;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.04);
-      padding:10px 14px;
-    }
-    .cta button[disabled] {
-      opacity:0.45;
-      cursor:not-allowed;
-      transform:none;
-      box-shadow:none;
-    }
-
-    .terms-box {
-      margin-top:16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border-radius:10px;
-      padding:14px;
-      color:var(--muted);
-      font-size:14px;
-      border:1px solid rgba(255,255,255,0.02);
-    }
-    .terms-box h4 { margin:6px 0 8px; color:var(--text); }
-    .terms-box ul { margin:8px 0 12px 18px; }
-
-    .terms-inline {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      justify-content:center;
-      margin-top:12px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .terms-inline input[type="checkbox"] {
-      width:16px;
-      height:16px;
-      accent-color: var(--accent-2);
-      cursor:pointer;
-    }
-    .terms-inline a { color:var(--accent-2); text-decoration:none; font-weight:700; }
-    .terms-inline a:hover { text-decoration:underline; }
-
     footer { text-align:center; padding:18px; color:var(--muted); margin-top:18px; }
-
-    @media (max-width:980px){
-      .pricing{flex-direction:column; align-items:stretch}
-      .plan{width:100%}
-      .tab-btn{min-width:90px}
-    }
   </style>
 </head>
+
 <body>
   <header>
     <h1>WhatCPS?</h1>
@@ -231,7 +145,8 @@
   </header>
 
   <div class="content">
-    <!-- Services card with Terms -->
+
+    <!-- SERVICES BOX -->
     <div class="card" id="services-card">
       <h2>Services</h2>
       <ul>
@@ -240,60 +155,57 @@
         <li>Optimization and debugging</li>
         <li>Custom systems and monetization setup</li>
       </ul>
+    </div>
 
-<!-- Terms & Conditions — Separate Box -->
-<div class="card" id="terms-card">
-  <h2>Terms & Conditions — What is included</h2>
+    <!-- TERMS BOX (SEPARATE) -->
+    <div class="card" id="services-terms">
+      <h2>Terms & Conditions — What is included</h2>
 
-  <p><strong>Included with every package</strong></p>
-  <ul>
-    <li><strong>Design files:</strong> Final GUI delivered as .rblx/.svg and Roblox-ready assets where applicable.</li>
-    <li><strong>Implementation-ready:</strong> UI elements prepared for import into Roblox Studio.</li>
-    <li><strong>Basic testing:</strong> Visual and functional checks in a test place.</li>
-    <li><strong>Support window:</strong> 7 days of free support after delivery for minor fixes.</li>
-    <li><strong>Revisions:</strong> Number of revisions depends on the plan.</li>
-    <li><strong>Delivery time:</strong> ETA confirmed after project scope is agreed.</li>
-  </ul>
+      <p><strong>Included with every package</strong></p>
+      <ul>
+        <li><strong>Design files:</strong> Final GUI delivered as .rblx/.svg and Roblox-ready assets.</li>
+        <li><strong>Implementation-ready:</strong> UI prepared for import into Roblox Studio.</li>
+        <li><strong>Basic testing:</strong> Visual and functional checks in a test place.</li>
+        <li><strong>Support window:</strong> 7 days of free support for minor fixes.</li>
+        <li><strong>Revisions:</strong> Based on plan.</li>
+        <li><strong>Delivery time:</strong> Confirmed after scope discussion.</li>
+      </ul>
 
-  <p><strong>Imported / Animated options</strong></p>
-  <ul>
-    <li><strong>Imported:</strong> I will import provided assets and adapt them.</li>
-    <li><strong>Animated:</strong> Includes basic UI animations. Complex animations require separate pricing.</li>
-  </ul>
+      <p><strong>Imported / Animated options</strong></p>
+      <ul>
+        <li><strong>Imported:</strong> I will import provided assets.</li>
+        <li><strong>Animated:</strong> Includes basic UI animations.</li>
+      </ul>
 
-  <p><strong>Not included</strong></p>
-  <ul>
-    <li>Full gameplay logic or server systems.</li>
-    <li>Paid assets or licenses.</li>
-    <li>Full redesigns outside the agreed scope.</li>
-  </ul>
+      <p><strong>Not included</strong></p>
+      <ul>
+        <li>Gameplay logic or server systems.</li>
+        <li>Paid assets or licenses.</li>
+        <li>Full redesigns outside the agreed scope.</li>
+      </ul>
 
-  <p><strong>Payment & delivery</strong></p>
-  <ul>
-    <li>Payment via Robux (Game Pass / Dev Product).</li>
-    <li>Work begins after payment/deposit.</li>
-    <li>Final files delivered after full payment.</li>
-  </ul>
+      <p><strong>Payment & delivery</strong></p>
+      <ul>
+        <li>Payment via Robux.</li>
+        <li>Work begins after payment/deposit.</li>
+        <li>Files delivered after full payment.</li>
+      </ul>
 
-  <p><strong>License & ownership</strong></p>
-  <ul>
-    <li>You can use the UI in your project after full payment.</li>
-    <li>I may showcase the work unless an NDA is agreed.</li>
-  </ul>
+      <p><strong>License & ownership</strong></p>
+      <ul>
+        <li>You may use the UI after full payment.</li>
+        <li>Work may be showcased unless NDA is discussed.</li>
+      </ul>
 
-  <p><strong>Cancellation & refunds</strong></p>
-  <ul>
-    <li>Full refund before work begins.</li>
-    <li>Pro-rated refund after work starts.</li>
-    <li>Refunds reduced by Roblox tax (≈ 30%).</li>
-  </ul>
+      <p><strong>Cancellation & refunds</strong></p>
+      <ul>
+        <li>Full refund before work begins.</li>
+        <li>Pro-rated refund after work starts.</li>
+        <li>Refunds reduced by Roblox tax (~30%).</li>
+      </ul>
+    </div>
 
-  <p style="margin-top:8px; color:var(--muted); font-size:13px;">
-    By checking the Terms & Conditions checkbox on a plan you confirm that you agree to the above.
-  </p>
-</div>
-
-    <!-- Pricing card -->
+    <!-- PRICING (unchanged except fixed anchor target) -->
     <div class="card" id="pricing">
       <h2>Pricing</h2>
 
@@ -366,205 +278,12 @@
           </div>
         </div>
       </div>
-
-      <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
     </div>
+
   </div>
 
   <footer>
     © <span id="year"></span> WhatCPS?
   </footer>
-
-  <script>
-    // Set current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    function featureHTML(text, ok, delayMs) {
-      const cls = ok ? 'up' : 'down';
-      const iconClass = ok ? 'check' : 'cross';
-      return `<li class="feature-item ${cls}" style="--delay:${delayMs}ms"><span class="icon ${iconClass}">${ok ? '✔' : '✖'}</span> <strong>${text}</strong></li>`;
-    }
-
-    const data = {
-      basic: {
-        regular: {
-          price: '500 Robux',
-          features: [
-            ['1 GUI', true],
-            ['Basic support', true],
-            ['Animated', false],
-            ['Imported', false],
-            ['1 revision', true]
-          ]
-        },
-        imported: {
-          price: '800 Robux',
-          features: [
-            ['1 GUI', true],
-            ['Basic support', true],
-            ['Animated', false],
-            ['Imported', true],
-            ['1 revision', true]
-          ]
-        },
-        animated: {
-          price: '1,100 Robux',
-          features: [
-            ['1 GUI', true],
-            ['Basic support', true],
-            ['Animated', true],
-            ['Imported', true],
-            ['2 revisions', true]
-          ]
-        }
-      },
-      pro: {
-        regular: {
-          price: '1,200 Robux',
-          features: [
-            ['3 GUIs', true],
-            ['Premium support', true],
-            ['Animated', false],
-            ['Imported', false],
-            ['3 revisions', true]
-          ]
-        },
-        imported: {
-          price: '1,500 Robux',
-          features: [
-            ['3 GUIs', true],
-            ['Premium support', true],
-            ['Animated', false],
-            ['Imported', true],
-            ['3 revisions', true]
-          ]
-        },
-        animated: {
-          price: '1,800 Robux',
-          features: [
-            ['3 GUIs', true],
-            ['Premium support', true],
-            ['Animated', true],
-            ['Imported', true],
-            ['4 revisions', true]
-          ]
-        }
-      },
-      ent: {
-        regular: {
-          price: '2,500 Robux',
-          features: [
-            ['5 GUIs', true],
-            ['Exclusive support', true],
-            ['Animated', false],
-            ['Imported', false],
-            ['5 revisions', true]
-          ]
-        },
-        imported: {
-          price: '3,000 Robux',
-          features: [
-            ['5 GUIs', true],
-            ['Exclusive support', true],
-            ['Animated', false],
-            ['Imported', true],
-            ['5 revisions', true]
-          ]
-        },
-        animated: {
-          price: '3,500 Robux',
-          features: [
-            ['5 GUIs', true],
-            ['Exclusive support', true],
-            ['Animated', true],
-            ['Imported', true],
-            ['6 revisions', true]
-          ]
-        }
-      }
-    };
-
-    function renderPlan(planKey, mode) {
-      const container = document.getElementById(planKey + '-features');
-      const priceEl = document.getElementById(planKey + '-price');
-      const planData = data[planKey][mode];
-
-      const checks = planData.features.filter(f => f[1]);
-      const crosses = planData.features.filter(f => !f[1]);
-
-      let html = '';
-      let delay = 0;
-      const step = 80;
-
-      checks.forEach(([text, ok]) => {
-        html += featureHTML(text, ok, delay);
-        delay += step;
-      });
-
-      delay += 80;
-      crosses.forEach(([text, ok]) => {
-        html += featureHTML(text, ok, delay);
-        delay += step;
-      });
-
-      container.innerHTML = html;
-
-      container.querySelectorAll('.feature-item').forEach(item => {
-        const delayVal = getComputedStyle(item).getPropertyValue('--delay') || item.style.getPropertyValue('--delay') || '0ms';
-        item.style.animationDelay = delayVal.trim();
-      });
-
-      priceEl.textContent = planData.price;
-    }
-
-    function initDefaults() {
-      renderPlan('basic', 'regular');
-      renderPlan('pro', 'regular');
-      renderPlan('ent', 'regular');
-    }
-    initDefaults();
-
-    document.querySelectorAll('.tabs .tab-btn').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.tabs .tab-btn').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const mode = tab.getAttribute('data-mode');
-        ['basic','pro','ent'].forEach(planKey => renderPlan(planKey, mode));
-      });
-    });
-
-    function wireTerms(planKey) {
-      const checkbox = document.getElementById(planKey + '-terms');
-      const orderBtn = document.getElementById(planKey + '-order');
-      if (!checkbox || !orderBtn) return;
-      checkbox.addEventListener('change', () => {
-        orderBtn.disabled = !checkbox.checked;
-      });
-    }
-    ['basic','pro','ent'].forEach(wireTerms);
-
-    document.querySelectorAll('.terms-inline a').forEach(a => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('services-terms').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
-    });
-
-    document.querySelectorAll('.cta button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.disabled) return;
-        alert('Thanks — your order request has been initiated. Contact me on Discord to finalize details.');
-      });
-    });
-
-    // Smooth scroll for Pricing button
-    document.getElementById("pricing-btn").addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("pricing").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
-  </script>
 </body>
 </html>
