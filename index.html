@@ -15,6 +15,7 @@
       --muted:#9aa3b2;
       --green:#7ef08a;
       --red:#ff6b6b;
+      --black-btn:#000000;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -59,24 +60,10 @@
       border:1px solid rgba(255,255,255,0.03);
     }
 
-    .plan .badge {
-      position:absolute;
-      top:14px;
-      right:14px;
-      background:var(--accent);
-      color:#000;
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:13px;
-      display:inline-block;
-      box-shadow: 0 6px 18px rgba(255,105,180,0.08);
-    }
-
     .plan h3 { margin:12px 0 6px; font-size:20px; }
     .plan p.lead { margin:0 0 12px; color:var(--muted); font-size:14px; }
 
-    /* Top tabs (white buttons) */
+    /* Top tabs (white when active, black when not active) */
     .tabs {
       display:flex;
       gap:8px;
@@ -85,9 +72,9 @@
       flex-wrap:wrap;
     }
     .tab-btn {
-      background:#ffffff;
-      color:#0b0b0d;
-      border:1px solid rgba(0,0,0,0.06);
+      background:var(--black-btn);
+      color:#ffffff;
+      border:1px solid rgba(255,255,255,0.04);
       padding:8px 14px;
       border-radius:10px;
       font-weight:700;
@@ -105,7 +92,7 @@
       border: none;
     }
 
-    /* remove local option buttons from plans (they are not used) */
+    /* hide local option buttons (not used) */
     .btn-group { display:none; }
 
     .price {
@@ -152,7 +139,7 @@
       margin-top:14px;
       flex-wrap:wrap;
     }
-    .cta a {
+    .cta a, .cta button {
       background:var(--accent);
       color:#000;
       padding:10px 16px;
@@ -160,13 +147,40 @@
       font-weight:800;
       text-decoration:none;
       box-shadow: 0 10px 30px rgba(255,105,180,0.08);
+      border: none;
+      cursor: pointer;
     }
-    .cta a.secondary {
+    .cta a.secondary, .cta button.secondary {
       background:transparent;
       color:var(--muted);
       border:1px solid rgba(255,255,255,0.04);
       padding:10px 14px;
     }
+    .cta button[disabled] {
+      opacity:0.45;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    /* Terms area */
+    .terms {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+      margin-top:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .terms input[type="checkbox"] {
+      width:16px;
+      height:16px;
+      accent-color: var(--accent-2);
+      cursor:pointer;
+    }
+    .terms a { color:var(--accent-2); text-decoration:none; font-weight:700; }
+    .terms a:hover { text-decoration:underline; }
 
     footer { text-align:center; padding:18px; color:var(--muted); margin-top:18px; }
 
@@ -217,16 +231,19 @@
 
           <div class="price"><span id="basic-price">500 Robux</span><span class="currency">/project</span></div>
 
+          <div class="terms">
+            <input id="basic-terms" type="checkbox" />
+            <label for="basic-terms">I agree to the <a href="#" target="_blank" rel="noopener">Terms & Conditions</a></label>
+          </div>
+
           <div class="cta">
-            <a href="#" class="buy">Order</a>
+            <button id="basic-order" disabled>Order</button>
             <a href="#" class="secondary">Contact</a>
           </div>
         </div>
 
         <!-- PROFESSIONAL -->
         <div class="plan" id="plan-pro">
-          <div class="badge">Popular</div>
-
           <h3>Professional</h3>
           <p class="lead">For passionate teams • Medium-scale games</p>
 
@@ -234,8 +251,13 @@
 
           <div class="price"><span id="pro-price">1,200 Robux</span><span class="currency">/project</span></div>
 
+          <div class="terms">
+            <input id="pro-terms" type="checkbox" />
+            <label for="pro-terms">I agree to the <a href="#" target="_blank" rel="noopener">Terms & Conditions</a></label>
+          </div>
+
           <div class="cta">
-            <a href="#" class="buy">Order</a>
+            <button id="pro-order" disabled>Order</button>
             <a href="#" class="secondary">Contact</a>
           </div>
         </div>
@@ -249,8 +271,13 @@
 
           <div class="price"><span id="ent-price">2,500 Robux</span><span class="currency">/project</span></div>
 
+          <div class="terms">
+            <input id="ent-terms" type="checkbox" />
+            <label for="ent-terms">I agree to the <a href="#" target="_blank" rel="noopener">Terms & Conditions</a></label>
+          </div>
+
           <div class="cta">
-            <a href="#" class="buy">Order</a>
+            <button id="ent-order" disabled>Order</button>
             <a href="#" class="secondary">Contact</a>
           </div>
         </div>
@@ -401,7 +428,25 @@
       });
     });
 
-    // Note: local plan buttons were removed so only top tabs change prices.
+    // Terms checkbox logic: enable order button only when terms checked
+    function wireTerms(planKey) {
+      const checkbox = document.getElementById(planKey + '-terms');
+      const orderBtn = document.getElementById(planKey + '-order');
+      if (!checkbox || !orderBtn) return;
+      checkbox.addEventListener('change', () => {
+        orderBtn.disabled = !checkbox.checked;
+      });
+    }
+    ['basic','pro','ent'].forEach(wireTerms);
+
+    // Optional: handle order clicks (placeholder)
+    document.querySelectorAll('.cta button').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (btn.disabled) return;
+        // Example behavior: open contact or start order flow
+        alert('Thanks — an order request has been initiated. Please contact me on Discord to finalize details.');
+      });
+    });
   </script>
 </body>
 </html>
