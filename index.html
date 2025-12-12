@@ -17,6 +17,7 @@
       --red:#ff6b6b;
       --black-btn:#000000;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body {
@@ -63,7 +64,7 @@
     .plan h3 { margin:12px 0 6px; font-size:20px; }
     .plan p.lead { margin:0 0 12px; color:var(--muted); font-size:14px; }
 
-    /* Top tabs (white when active, black when not active) */
+    /* Top tabs */
     .tabs {
       display:flex;
       gap:8px;
@@ -92,9 +93,6 @@
       border: none;
     }
 
-    /* hide local option buttons (not used) */
-    .btn-group { display:none; }
-
     .price {
       text-align:center;
       font-weight:900;
@@ -106,16 +104,20 @@
 
     .price .currency { color:var(--muted); font-weight:600; font-size:13px; margin-left:6px; }
 
-    .features { list-style:none; padding:0; margin:12px 0 8px; }
-    .features li {
-      margin:10px 0;
+    .features { list-style:none; padding:0; margin:12px 0 8px; min-height:120px; }
+    /* Each feature row */
+    .feature-item {
+      margin:8px 0;
       display:flex;
       align-items:center;
       gap:12px;
       font-size:14px;
       color:var(--muted);
+      opacity:0; /* start hidden, animation will reveal */
+      transform: translateY(0);
+      will-change: transform, opacity;
     }
-    .features li strong { color:var(--text); font-weight:700; }
+    .feature-item strong { color:var(--text); font-weight:700; }
 
     .icon {
       display:inline-flex;
@@ -126,9 +128,28 @@
       font-weight:700;
       border-radius:6px;
       font-size:13px;
+      flex: 0 0 28px;
     }
     .check { color:var(--green); background: rgba(126,240,138,0.06); border:1px solid rgba(126,240,138,0.06); }
     .cross { color:var(--red); background: rgba(255,107,107,0.04); border:1px solid rgba(255,107,107,0.03); }
+
+    /* Animation: checks slide up slightly and fade in; crosses slide down slightly and fade in */
+    @keyframes slideUpFade {
+      0% { transform: translateY(18px); opacity: 0; }
+      60% { transform: translateY(-6px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes slideDownFade {
+      0% { transform: translateY(-18px); opacity: 0; }
+      60% { transform: translateY(6px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .feature-item.up { animation: slideUpFade 520ms cubic-bezier(.2,.9,.2,1) both; }
+    .feature-item.down { animation: slideDownFade 520ms cubic-bezier(.2,.9,.2,1) both; }
+
+    /* stagger helper: JS will set inline style --delay */
+    .feature-item { animation-delay: var(--delay, 0ms); }
 
     .note { font-size:0.92rem; color:var(--muted); margin-top:12px; text-align:center; }
 
@@ -163,7 +184,7 @@
       box-shadow:none;
     }
 
-    /* Terms area (now inside same card as Services) */
+    /* Terms box inside Services card */
     .terms-box {
       margin-top:16px;
       background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
@@ -212,7 +233,7 @@
   </header>
 
   <div class="content">
-    <!-- Services card: now includes Services list and the full Terms box -->
+    <!-- Services card with Terms -->
     <div class="card" id="services-card">
       <h2>Services</h2>
       <ul>
@@ -222,7 +243,6 @@
         <li>Custom systems and monetization setup</li>
       </ul>
 
-      <!-- Terms box placed inside the same card as Services -->
       <div class="terms-box" id="services-terms">
         <h4>Terms & Conditions — What is included</h4>
 
@@ -360,22 +380,22 @@
     // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Helpers
-    function liCheck(text) {
-      return '<li><span class="icon check">✔</span> <strong>' + text + '</strong></li>';
-    }
-    function liCross(text) {
-      return '<li><span class="icon cross">✖</span> ' + text + '</li>';
+    // Helpers that return HTML for feature rows
+    function featureHTML(text, ok, delayMs) {
+      const cls = ok ? 'up' : 'down';
+      const iconClass = ok ? 'check' : 'cross';
+      // Use data-delay attribute for JS to set CSS variable
+      return `<li class="feature-item ${cls}" style="--delay:${delayMs}ms"><span class="icon ${iconClass}">${ok ? '✔' : '✖'}</span> <strong>${text}</strong></li>`;
     }
 
-    // Robux pricing data (with revisions/support details)
+    // Pricing data
     const data = {
       basic: {
         regular: {
           price: '500 Robux',
           features: [
             ['1 GUI', true],
-            ['Basic support (7 days)', true],
+            ['Basic support', true],
             ['Animated', false],
             ['Imported', false],
             ['1 revision', true]
@@ -385,7 +405,7 @@
           price: '800 Robux',
           features: [
             ['1 GUI', true],
-            ['Basic support (7 days)', true],
+            ['Basic support', true],
             ['Animated', false],
             ['Imported', true],
             ['1 revision', true]
@@ -395,7 +415,7 @@
           price: '1,100 Robux',
           features: [
             ['1 GUI', true],
-            ['Basic support (7 days)', true],
+            ['Basic support', true],
             ['Animated', true],
             ['Imported', true],
             ['2 revisions', true]
@@ -407,7 +427,7 @@
           price: '1,200 Robux',
           features: [
             ['3 GUIs', true],
-            ['Premium support (14 days)', true],
+            ['Premium support', true],
             ['Animated', false],
             ['Imported', false],
             ['3 revisions', true]
@@ -417,7 +437,7 @@
           price: '1,500 Robux',
           features: [
             ['3 GUIs', true],
-            ['Premium support (14 days)', true],
+            ['Premium support', true],
             ['Animated', false],
             ['Imported', true],
             ['3 revisions', true]
@@ -427,7 +447,7 @@
           price: '1,800 Robux',
           features: [
             ['3 GUIs', true],
-            ['Premium support (14 days)', true],
+            ['Premium support', true],
             ['Animated', true],
             ['Imported', true],
             ['4 revisions', true]
@@ -439,7 +459,7 @@
           price: '2,500 Robux',
           features: [
             ['5 GUIs', true],
-            ['Exclusive support (30 days)', true],
+            ['Exclusive support', true],
             ['Animated', false],
             ['Imported', false],
             ['5 revisions', true]
@@ -449,7 +469,7 @@
           price: '3,000 Robux',
           features: [
             ['5 GUIs', true],
-            ['Exclusive support (30 days)', true],
+            ['Exclusive support', true],
             ['Animated', false],
             ['Imported', true],
             ['5 revisions', true]
@@ -459,7 +479,7 @@
           price: '3,500 Robux',
           features: [
             ['5 GUIs', true],
-            ['Exclusive support (30 days)', true],
+            ['Exclusive support', true],
             ['Animated', true],
             ['Imported', true],
             ['6 revisions', true]
@@ -468,21 +488,43 @@
       }
     };
 
-    // Render plan features and price
+    // Render plan: ensure checks (true) are placed above crosses (false)
     function renderPlan(planKey, mode) {
-      const featuresContainer = document.getElementById(planKey + '-features');
+      const container = document.getElementById(planKey + '-features');
       const priceEl = document.getElementById(planKey + '-price');
       const planData = data[planKey][mode];
 
+      // Separate checks and crosses to guarantee order: checks first, crosses last
+      const checks = planData.features.filter(f => f[1]);
+      const crosses = planData.features.filter(f => !f[1]);
+
+      // Build HTML with staggered delays
       let html = '';
-      planData.features.forEach(([text, ok]) => {
-        html += ok ? liCheck(text) : liCross(text);
+      let delay = 0;
+      const step = 80; // ms between items
+      checks.forEach(([text, ok]) => {
+        html += featureHTML(text, ok, delay);
+        delay += step;
       });
-      featuresContainer.innerHTML = html;
+      // Add a small extra gap before crosses to emphasize separation
+      delay += 80;
+      crosses.forEach(([text, ok]) => {
+        html += featureHTML(text, ok, delay);
+        delay += step;
+      });
+
+      container.innerHTML = html;
+
+      // After inserting, set the computed CSS variable for each item (for browsers that don't pick inline style var)
+      container.querySelectorAll('.feature-item').forEach(item => {
+        const delayVal = getComputedStyle(item).getPropertyValue('--delay') || item.style.getPropertyValue('--delay') || '0ms';
+        item.style.animationDelay = delayVal.trim();
+      });
+
       priceEl.textContent = planData.price;
     }
 
-    // Initialize defaults (regular)
+    // Initialize default view
     function initDefaults() {
       renderPlan('basic', 'regular');
       renderPlan('pro', 'regular');
@@ -496,8 +538,6 @@
         document.querySelectorAll('.tabs .tab-btn').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const mode = tab.getAttribute('data-mode'); // regular/imported/animated
-
-        // Update every plan according to selected mode
         ['basic','pro','ent'].forEach(planKey => renderPlan(planKey, mode));
       });
     });
@@ -521,7 +561,7 @@
       });
     });
 
-    // Optional: handle order clicks (placeholder)
+    // Order button placeholder behavior
     document.querySelectorAll('.cta button').forEach(btn => {
       btn.addEventListener('click', (e) => {
         if (btn.disabled) return;
