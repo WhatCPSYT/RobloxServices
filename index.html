@@ -53,13 +53,22 @@
     .plan h3 {
       margin-top: 0;
     }
-    .plan ul {
-      list-style: none;
-      padding: 0;
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
     }
-    .plan ul li {
-      margin: 8px 0;
+    button {
+      background:#1e90ff;
+      border:none;
+      padding:8px 12px;
+      border-radius:6px;
+      color:#000;
+      font-weight:bold;
+      cursor:pointer;
     }
+    button:hover { background:#3aa0ff; }
     .note {
       font-size: 0.95rem;
       color: #ccc;
@@ -98,36 +107,43 @@
     <div class="card">
       <h2>Pricing Packages</h2>
       <div class="pricing">
+        <!-- BASIC -->
         <div class="plan">
           <h3>Basic Package</h3>
-          <p>For small games</p>
-          <ul>
-            <li>1 GUI</li>
-            <li>Basic support</li>
-            <li>Standard layout</li>
-          </ul>
-          <p><strong>Price:</strong> 500 Robux</p>
+          <p id="basic-desc">For small games — 1 GUI, Basic support<br>❌ Animated<br>❌ Imported</p>
+          <p><strong>Price:</strong> <span id="basic-price">500 Robux</span></p>
+          <div class="btn-group">
+            <button onclick="setBasic('regular')">Regular</button>
+            <button onclick="setBasic('imported')">Imported</button>
+            <button onclick="setBasic('animated')">Imported + Animated</button>
+          </div>
         </div>
+
+        <!-- PROFESSIONAL -->
         <div class="plan">
           <h3>Professional</h3>
-          <p>For medium-scale games</p>
-          <ul>
-            <li>3 GUIs</li>
-            <li>Premium support</li>
-            <li>Custom layout</li>
-          </ul>
-          <p><strong>Price:</strong> 1,200 Robux</p>
+          <p id="pro-desc">For medium-scale games — 3 GUIs, Premium support<br>❌ Animated<br>❌ Imported</p>
+          <p><strong>Price:</strong> <span id="pro-price">1,200 Robux</span></p>
+          <div class="btn-group">
+            <button onclick="setPro('regular')">Regular</button>
+            <button onclick="setPro('imported')">Imported</button>
+            <button onclick="setPro('animated')">Imported + Animated</button>
+          </div>
         </div>
+
+        <!-- ENTERPRISE -->
         <div class="plan">
           <h3>Enterprise</h3>
-          <p>For large-scale games</p>
-          <ul>
-            <li>5 GUIs</li>
-            <li>Exclusive support</li>
-            <li>Unlimited revisions</li>
-          </ul>
-          <p><strong>Price:</strong> 2,500 Robux</p>
+          <p id="ent-desc">For large-scale games — 5 GUIs, Exclusive support<br>❌ Animated<br>❌ Imported</p>
+          <p><strong>Price:</strong> <span id="ent-price">2,500 Robux</span></p>
+          <div class="btn-group">
+            <button onclick="setEnt('regular')">Regular</button>
+            <button onclick="setEnt('imported')">Imported</button>
+            <button onclick="setEnt('animated')">Imported + Animated</button>
+          </div>
         </div>
+
+        <!-- CUSTOM -->
         <div class="plan">
           <h3>Custom</h3>
           <p>For unique or advanced projects</p>
@@ -149,6 +165,60 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // BASIC
+    function setBasic(option) {
+      const desc = document.getElementById('basic-desc');
+      const price = document.getElementById('basic-price');
+      if(option === 'regular') {
+        desc.innerHTML = "For small games — 1 GUI, Basic support<br>❌ Animated<br>❌ Imported";
+        price.textContent = "500 Robux";
+      }
+      if(option === 'imported') {
+        desc.innerHTML = "For small games — 1 GUI, Basic support<br>❌ Animated<br>☑ Imported";
+        price.textContent = "800 Robux";
+      }
+      if(option === 'animated') {
+        desc.innerHTML = "For small games — 1 GUI, Basic support<br>☑ Animated<br>☑ Imported";
+        price.textContent = "1,100 Robux";
+      }
+    }
+
+    // PROFESSIONAL
+    function setPro(option) {
+      const desc = document.getElementById('pro-desc');
+      const price = document.getElementById('pro-price');
+      if(option === 'regular') {
+        desc.innerHTML = "For medium-scale games — 3 GUIs, Premium support<br>❌ Animated<br>❌ Imported";
+        price.textContent = "1,200 Robux";
+      }
+      if(option === 'imported') {
+        desc.innerHTML = "For medium-scale games — 3 GUIs, Premium support<br>❌ Animated<br>☑ Imported";
+        price.textContent = "1,500 Robux";
+      }
+      if(option === 'animated') {
+        desc.innerHTML = "For medium-scale games — 3 GUIs, Premium support<br>☑ Animated<br>☑ Imported";
+        price.textContent = "1,800 Robux";
+      }
+    }
+
+    // ENTERPRISE
+    function setEnt(option) {
+      const desc = document.getElementById('ent-desc');
+      const price = document.getElementById('ent-price');
+      if(option === 'regular') {
+        desc.innerHTML = "For large-scale games — 5 GUIs, Exclusive support<br>❌ Animated<br>❌ Imported";
+        price.textContent = "2,500 Robux";
+      }
+      if(option === 'imported') {
+        desc.innerHTML = "For large-scale games — 5 GUIs, Exclusive support<br>❌ Animated<br>☑ Imported";
+        price.textContent = "3,000 Robux";
+      }
+      if(option === 'animated') {
+        desc.innerHTML = "For large-scale games — 5 GUIs, Exclusive support<br>☑ Animated<br>☑ Imported";
+        price.textContent = "3,500 Robux";
+      }
+    }
   </script>
 </body>
 </html>
