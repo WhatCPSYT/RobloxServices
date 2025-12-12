@@ -1,1 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WhatCPS — Roblox Studio Developer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    header, footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+    }
+    h1, h2, h3 {
+      color: #fff;
+    }
+    a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .card {
+      background-color: #111;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .pricing {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .plan {
+      flex: 1 1 250px;
+      background-color: #222;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .plan h3 {
+      margin-top: 0;
+    }
+    .plan ul {
+      list-style: none;
+      padding: 0;
+    }
+    .plan ul li {
+      margin: 8px 0;
+    }
+    .note {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WhatCPS</h1>
+    <p>Roblox Studio Developer • UI/UX • Scripting</p>
+    <a href="https://discord.com/users/YOUR_ID_OR_INVITE">Contact me on Discord</a>
+  </header>
 
+  <div class="content">
+    <div class="card">
+      <h2>Services</h2>
+      <ul>
+        <li>UI/UX design and implementation</li>
+        <li>Game logic and system scripting</li>
+        <li>Optimization and debugging</li>
+        <li>Custom systems and monetization setup</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Terms</h2>
+      <ul>
+        <li>Work is delivered according to the agreed scope</li>
+        <li>Payment in Robux, negotiated individually</li>
+        <li><strong>No refunds</strong> after delivery of work</li>
+        <li>Client must provide clear requirements and assets if needed</li>
+        <li>Support level depends on selected package</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Pricing Packages</h2>
+      <div class="pricing">
+        <div class="plan">
+          <h3>Basic Package</h3>
+          <p>For small games</p>
+          <ul>
+            <li>1 GUI</li>
+            <li>Basic support</li>
+            <li>Standard layout</li>
+          </ul>
+          <p><strong>Price:</strong> 500 Robux</p>
+        </div>
+        <div class="plan">
+          <h3>Professional</h3>
+          <p>For medium-scale games</p>
+          <ul>
+            <li>3 GUIs</li>
+            <li>Premium support</li>
+            <li>Custom layout</li>
+          </ul>
+          <p><strong>Price:</strong> 1,200 Robux</p>
+        </div>
+        <div class="plan">
+          <h3>Enterprise</h3>
+          <p>For large-scale games</p>
+          <ul>
+            <li>5 GUIs</li>
+            <li>Exclusive support</li>
+            <li>Unlimited revisions</li>
+          </ul>
+          <p><strong>Price:</strong> 2,500 Robux</p>
+        </div>
+        <div class="plan">
+          <h3>Custom</h3>
+          <p>For unique or advanced projects</p>
+          <ul>
+            <li>Flexible GUI count</li>
+            <li>Advanced systems</li>
+            <li>Full consultation</li>
+          </ul>
+          <p><strong>Price:</strong> Contact me — may be higher depending on scope</p>
+        </div>
+      </div>
+      <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> WhatCPS
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
