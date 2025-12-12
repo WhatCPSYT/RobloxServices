@@ -1,76 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WhatCPS? — Roblox Studio Developer</title>
   <style>
-    body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; }
-    header, footer { text-align:center; padding:20px; background:#111; }
-    h1,h2,h3 { color:#fff; }
-    a { color:#1e90ff; text-decoration:none; }
+    :root{
+      --bg:#000;
+      --card:#111;
+      --card-2:#222;
+      --accent:#1e90ff;
+      --text:#fff;
+      --muted:#ccc;
+      --green:limegreen;
+      --red:#ff4d4d;
+    }
+    *{box-sizing:border-box}
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    header, footer { text-align:center; padding:20px; background:var(--card); }
+    header h1 { margin:0; font-size:28px; letter-spacing:0.5px; }
+    header p { margin:6px 0 10px; color:var(--muted); }
+    a { color:var(--accent); text-decoration:none; }
     a:hover { text-decoration:underline; }
-    .content { max-width:900px; margin:0 auto; padding:20px; }
-    .card { background:#111; padding:20px; margin:20px 0; border-radius:8px; }
-    .pricing { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
-    .plan { flex:1 1 250px; background:#222; border-radius:8px; padding:20px; text-align:center; }
-    .plan h3 { margin-top:0; }
-    .btn-group { display:flex; gap:10px; justify-content:center; margin-bottom:10px; flex-wrap:wrap; }
-    button { background:#1e90ff; border:none; padding:8px 12px; border-radius:6px; color:#000; font-weight:bold; cursor:pointer; }
-    button:hover { background:#3aa0ff; }
-    .note { font-size:0.95rem; color:#ccc; }
+    .content { max-width:980px; margin:0 auto; padding:20px; }
+    .card { background:var(--card); padding:20px; margin:18px 0; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    h2 { margin-top:0; }
+    .pricing { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; }
+    .plan { flex:1 1 260px; background:var(--card-2); border-radius:10px; padding:18px; text-align:left; min-width:220px; }
+    .plan h3 { margin:6px 0 12px; text-align:center; }
+    .btn-group { display:flex; gap:8px; justify-content:center; margin-bottom:12px; flex-wrap:wrap; }
+    .btn-group button { background:var(--accent); border:none; padding:8px 12px; border-radius:8px; color:#000; font-weight:700; cursor:pointer; }
+    .btn-group button:hover { filter:brightness(1.05); }
+    ul { margin:0; padding-left:18px; }
+    ul.features { list-style:none; padding:0; margin:8px 0 12px; }
+    ul.features li { margin:8px 0; display:flex; align-items:center; gap:10px; font-size:15px; }
+    .icon { display:inline-flex; width:22px; justify-content:center; align-items:center; font-weight:700; border-radius:4px; }
+    .check { color:var(--green); }
+    .cross { color:var(--red); }
+    .price { text-align:center; font-weight:800; margin-top:8px; font-size:16px; }
+    .note { font-size:0.92rem; color:var(--muted); margin-top:12px; text-align:center; }
+    footer { color:var(--muted); }
+    /* Responsive */
+    @media (max-width:720px){
+      .pricing{flex-direction:column; align-items:stretch}
+      .plan{width:100%}
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>WhatCPS?</h1>
     <p>Roblox Studio Developer • UI/UX • Scripting</p>
-    <a href="https://discord.com/users/YOUR_ID_OR_INVITE">Contact me on Discord</a>
+    <a href="https://discord.com/users/YOUR_ID_OR_INVITE" target="_blank" rel="noopener">Contact me on Discord</a>
   </header>
 
   <div class="content">
     <div class="card">
+      <h2>Services</h2>
+      <ul>
+        <li>UI/UX design and implementation</li>
+        <li>Game logic and system scripting</li>
+        <li>Optimization and debugging</li>
+        <li>Custom systems and monetization setup</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Terms</h2>
+      <ul>
+        <li>Work is delivered according to the agreed scope</li>
+        <li>Payment in Robux, negotiated individually</li>
+        <li><strong>No refunds</strong> after delivery of work</li>
+        <li>Client must provide clear requirements and assets if needed</li>
+        <li>Support level depends on selected package</li>
+      </ul>
+    </div>
+
+    <div class="card">
       <h2>Pricing Packages</h2>
+
       <div class="pricing">
-        
         <!-- BASIC -->
-        <div class="plan">
-          <div class="btn-group">
-            <button onclick="setBasic('regular')">Regular</button>
-            <button onclick="setBasic('imported')">Imported</button>
-            <button onclick="setBasic('animated')">Imported + Animated</button>
+        <div class="plan" id="plan-basic">
+          <div class="btn-group" role="tablist" aria-label="Basic options">
+            <button type="button" onclick="setBasic('regular')">Regular</button>
+            <button type="button" onclick="setBasic('imported')">Imported</button>
+            <button type="button" onclick="setBasic('animated')">Imported + Animated</button>
           </div>
+
           <h3>Basic Package</h3>
-          <p id="basic-desc">For small games — ☑ 1 GUI, ☑ Basic support<br>❌ Animated<br>❌ Imported</p>
-          <p><strong>Price:</strong> <span id="basic-price">500 Robux</span></p>
+          <ul class="features" id="basic-features">
+            <li><span class="icon check">✔️</span> 1 GUI</li>
+            <li><span class="icon check">✔️</span> Basic support</li>
+            <li><span class="icon cross">❌</span> Animated</li>
+            <li><span class="icon cross">❌</span> Imported</li>
+          </ul>
+          <div class="price"><span id="basic-price">500 Robux</span></div>
         </div>
 
         <!-- PROFESSIONAL -->
-        <div class="plan">
-          <div class="btn-group">
-            <button onclick="setPro('regular')">Regular</button>
-            <button onclick="setPro('imported')">Imported</button>
-            <button onclick="setPro('animated')">Imported + Animated</button>
+        <div class="plan" id="plan-pro">
+          <div class="btn-group" role="tablist" aria-label="Professional options">
+            <button type="button" onclick="setPro('regular')">Regular</button>
+            <button type="button" onclick="setPro('imported')">Imported</button>
+            <button type="button" onclick="setPro('animated')">Imported + Animated</button>
           </div>
+
           <h3>Professional</h3>
-          <p id="pro-desc">For medium-scale games — ☑ 3 GUIs, ☑ Premium support<br>❌ Animated<br>❌ Imported</p>
-          <p><strong>Price:</strong> <span id="pro-price">1,200 Robux</span></p>
+          <ul class="features" id="pro-features">
+            <li><span class="icon check">✔️</span> 3 GUIs</li>
+            <li><span class="icon check">✔️</span> Premium support</li>
+            <li><span class="icon cross">❌</span> Animated</li>
+            <li><span class="icon cross">❌</span> Imported</li>
+          </ul>
+          <div class="price"><span id="pro-price">1,200 Robux</span></div>
         </div>
 
         <!-- ENTERPRISE -->
-        <div class="plan">
-          <div class="btn-group">
-            <button onclick="setEnt('regular')">Regular</button>
-            <button onclick="setEnt('imported')">Imported</button>
-            <button onclick="setEnt('animated')">Imported + Animated</button>
+        <div class="plan" id="plan-ent">
+          <div class="btn-group" role="tablist" aria-label="Enterprise options">
+            <button type="button" onclick="setEnt('regular')">Regular</button>
+            <button type="button" onclick="setEnt('imported')">Imported</button>
+            <button type="button" onclick="setEnt('animated')">Imported + Animated</button>
           </div>
+
           <h3>Enterprise</h3>
-          <p id="ent-desc">For large-scale games — ☑ 5 GUIs, ☑ Exclusive support<br>❌ Animated<br>❌ Imported</p>
-          <p><strong>Price:</strong> <span id="ent-price">2,500 Robux</span></p>
+          <ul class="features" id="ent-features">
+            <li><span class="icon check">✔️</span> 5 GUIs</li>
+            <li><span class="icon check">✔️</span> Exclusive support</li>
+            <li><span class="icon cross">❌</span> Animated</li>
+            <li><span class="icon cross">❌</span> Imported</li>
+          </ul>
+          <div class="price"><span id="ent-price">2,500 Robux</span></div>
         </div>
 
         <!-- CUSTOM -->
-        <div class="plan">
+        <div class="plan" id="plan-custom">
           <h3>Custom</h3>
           <p>For unique or advanced projects</p>
           <ul>
@@ -78,9 +150,10 @@
             <li>Advanced systems</li>
             <li>Full consultation</li>
           </ul>
-          <p><strong>Price:</strong> Contact me — may be higher depending on scope</p>
+          <div class="price">Contact for pricing</div>
         </div>
       </div>
+
       <p class="note">All payments are made via Robux (Game Pass or Developer Product). Final price depends on project complexity.</p>
     </div>
   </div>
@@ -90,61 +163,122 @@
   </footer>
 
   <script>
+    // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // BASIC
+    // Helper to build feature list items with colored icons
+    function liCheck(text) {
+      return '<li><span class="icon check">✔️</span> ' + text + '</li>';
+    }
+    function liCross(text) {
+      return '<li><span class="icon cross">❌</span> ' + text + '</li>';
+    }
+
+    // BASIC package behavior
     function setBasic(option) {
-      const desc = document.getElementById('basic-desc');
+      const features = document.getElementById('basic-features');
       const price = document.getElementById('basic-price');
-      if(option === 'regular') {
-        desc.innerHTML = "For small games — ☑ 1 GUI, ☑ Basic support<br>❌ Animated<br>❌ Imported";
-        price.textContent = "500 Robux";
+
+      if (option === 'regular') {
+        features.innerHTML = ''
+          + liCheck('1 GUI')
+          + liCheck('Basic support')
+          + liCross('Animated')
+          + liCross('Imported');
+        price.textContent = '500 Robux';
       }
-      if(option === 'imported') {
-        desc.innerHTML = "For small games — ☑ 1 GUI, ☑ Basic support<br>❌ Animated<br>☑ Imported";
-        price.textContent = "800 Robux";
+
+      if (option === 'imported') {
+        features.innerHTML = ''
+          + liCheck('1 GUI')
+          + liCheck('Basic support')
+          + liCross('Animated')
+          + liCheck('Imported');
+        price.textContent = '800 Robux';
       }
-      if(option === 'animated') {
-        desc.innerHTML = "For small games — ☑ 1 GUI, ☑ Basic support<br>☑ Animated<br>☑ Imported";
-        price.textContent = "1,100 Robux";
+
+      if (option === 'animated') {
+        features.innerHTML = ''
+          + liCheck('1 GUI')
+          + liCheck('Basic support')
+          + liCheck('Animated')
+          + liCheck('Imported');
+        price.textContent = '1,100 Robux';
       }
     }
 
-    // PROFESSIONAL
+    // PROFESSIONAL package behavior
     function setPro(option) {
-      const desc = document.getElementById('pro-desc');
+      const features = document.getElementById('pro-features');
       const price = document.getElementById('pro-price');
-      if(option === 'regular') {
-        desc.innerHTML = "For medium-scale games — ☑ 3 GUIs, ☑ Premium support<br>❌ Animated<br>❌ Imported";
-        price.textContent = "1,200 Robux";
+
+      if (option === 'regular') {
+        features.innerHTML = ''
+          + liCheck('3 GUIs')
+          + liCheck('Premium support')
+          + liCross('Animated')
+          + liCross('Imported');
+        price.textContent = '1,200 Robux';
       }
-      if(option === 'imported') {
-        desc.innerHTML = "For medium-scale games — ☑ 3 GUIs, ☑ Premium support<br>❌ Animated<br>☑ Imported";
-        price.textContent = "1,500 Robux";
+
+      if (option === 'imported') {
+        features.innerHTML = ''
+          + liCheck('3 GUIs')
+          + liCheck('Premium support')
+          + liCross('Animated')
+          + liCheck('Imported');
+        price.textContent = '1,500 Robux';
       }
-      if(option === 'animated') {
-        desc.innerHTML = "For medium-scale games — ☑ 3 GUIs, ☑ Premium support<br>☑ Animated<br>☑ Imported";
-        price.textContent = "1,800 Robux";
+
+      if (option === 'animated') {
+        features.innerHTML = ''
+          + liCheck('3 GUIs')
+          + liCheck('Premium support')
+          + liCheck('Animated')
+          + liCheck('Imported');
+        price.textContent = '1,800 Robux';
       }
     }
 
-    // ENTERPRISE
+    // ENTERPRISE package behavior
     function setEnt(option) {
-      const desc = document.getElementById('ent-desc');
+      const features = document.getElementById('ent-features');
       const price = document.getElementById('ent-price');
-      if(option === 'regular') {
-        desc.innerHTML = "For large-scale games — ☑ 5 GUIs, ☑ Exclusive support<br>❌ Animated<br>❌ Imported";
-        price.textContent = "2,500 Robux";
+
+      if (option === 'regular') {
+        features.innerHTML = ''
+          + liCheck('5 GUIs')
+          + liCheck('Exclusive support')
+          + liCross('Animated')
+          + liCross('Imported');
+        price.textContent = '2,500 Robux';
       }
-      if(option === 'imported') {
-        desc.innerHTML = "For large-scale games — ☑ 5 GUIs, ☑ Exclusive support<br>❌ Animated<br>☑ Imported";
-        price.textContent = "3,000 Robux";
+
+      if (option === 'imported') {
+        features.innerHTML = ''
+          + liCheck('5 GUIs')
+          + liCheck('Exclusive support')
+          + liCross('Animated')
+          + liCheck('Imported');
+        price.textContent = '3,000 Robux';
       }
-      if(option === 'animated') {
-        desc.innerHTML = "For large-scale games — ☑ 5 GUIs, ☑ Exclusive support<br>☑ Animated<br>☑ Imported";
-        price.textContent = "3,500 Robux";
+
+      if (option === 'animated') {
+        features.innerHTML = ''
+          + liCheck('5 GUIs')
+          + liCheck('Exclusive support')
+          + liCheck('Animated')
+          + liCheck('Imported');
+        price.textContent = '3,500 Robux';
       }
     }
+
+    // Initialize default states
+    (function initDefaults(){
+      setBasic('regular');
+      setPro('regular');
+      setEnt('regular');
+    })();
   </script>
 </body>
 </html>
